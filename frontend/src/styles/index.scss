@@ -1,0 +1,411 @@
+@use 'variables' as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 14px;
+  color: $text-primary;
+  background-color: $bg-color;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: $primary-color;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: $border-color;
+  border-radius: 3px;
+
+  &:hover {
+    background-color: $text-secondary;
+  }
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+// ============================================
+// Element Plus 暗色主题全局覆盖
+// ============================================
+
+// 主按钮 - 渐变风格
+.el-button--primary {
+  --el-button-bg-color: #{$primary-color};
+  --el-button-border-color: #{$primary-color};
+  --el-button-text-color: #ffffff;
+  --el-button-hover-bg-color: #{$primary-hover};
+  --el-button-hover-border-color: #{$primary-hover};
+  --el-button-active-bg-color: #4f46e5;
+  --el-button-active-border-color: #4f46e5;
+  background: $primary-gradient;
+  border: none;
+  font-weight: 500;
+  transition: all $transition-base;
+  
+  &:hover {
+    background: $primary-gradient;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(99, 102, 241, 0.4);
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+// 默认按钮
+.el-button--default {
+  --el-button-bg-color: transparent;
+  --el-button-border-color: #{$border-color};
+  --el-button-text-color: #{$text-secondary};
+  background: transparent;
+  border: 1px solid $border-color;
+  color: $text-secondary;
+  font-weight: 500;
+  transition: all $transition-base;
+  
+  &:hover {
+    background: $bg-hover;
+    border-color: rgba(255, 255, 255, 0.2);
+    color: $text-primary;
+  }
+}
+
+// Dialog 弹窗
+.el-dialog {
+  --el-dialog-bg-color: #{$bg-card};
+  --el-dialog-title-font-size: 18px;
+  background: $bg-card !important;
+  border: 1px solid $border-color !important;
+  border-radius: $radius-xl !important;
+  box-shadow: $shadow-lg, 0 0 60px rgba(0, 0, 0, 0.5) !important;
+  overflow: hidden;
+}
+
+.el-dialog__header {
+  padding: 20px 24px !important;
+  border-bottom: 1px solid $border-color !important;
+  margin-right: 0 !important;
+}
+
+.el-dialog__title {
+  color: $text-primary !important;
+  font-weight: 600 !important;
+  font-size: 18px !important;
+}
+
+.el-dialog__headerbtn {
+  top: 20px !important;
+  right: 20px !important;
+  width: 32px !important;
+  height: 32px !important;
+  background: $bg-hover !important;
+  border-radius: $radius-sm !important;
+  transition: all $transition-base !important;
+  
+  .el-dialog__close {
+    color: $text-secondary !important;
+    font-size: 16px !important;
+  }
+  
+  &:hover {
+    background: rgba(239, 68, 68, 0.1) !important;
+    
+    .el-dialog__close {
+      color: $danger-color !important;
+    }
+  }
+}
+
+.el-dialog__body {
+  padding: 24px !important;
+  color: $text-primary !important;
+}
+
+.el-dialog__footer {
+  padding: 16px 24px !important;
+  border-top: 1px solid $border-color !important;
+  background: rgba(0, 0, 0, 0.2) !important;
+}
+
+// Form 表单
+.el-form-item__label {
+  color: $text-secondary !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+}
+
+.el-form-item {
+  margin-bottom: 24px !important;
+}
+
+// Input 输入框
+.el-input__wrapper {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid $border-color !important;
+  border-radius: $radius-base !important;
+  box-shadow: none !important;
+  padding: 4px 16px !important;
+  transition: all $transition-base !important;
+  
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.2) !important;
+  }
+  
+  &.is-focus {
+    border-color: $primary-color !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+  }
+}
+
+.el-input__inner {
+  color: $text-primary !important;
+  font-size: 15px !important;
+  
+  &::placeholder {
+    color: $text-placeholder !important;
+  }
+}
+
+.el-input--large .el-input__wrapper {
+  padding: 8px 16px !important;
+}
+
+.el-input--large .el-input__inner {
+  font-size: 15px !important;
+}
+
+// Select 选择器
+.el-select {
+  width: 100%;
+}
+
+.el-select__wrapper {
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid $border-color !important;
+  border-radius: $radius-base !important;
+  box-shadow: none !important;
+  transition: all $transition-base !important;
+  
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.2) !important;
+  }
+  
+  &.is-focused {
+    border-color: $primary-color !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15) !important;
+  }
+}
+
+.el-select__input {
+  color: $text-primary !important;
+}
+
+.el-select__placeholder {
+  color: $text-placeholder !important;
+}
+
+// Select 下拉菜单
+.el-select-dropdown {
+  background: $bg-card !important;
+  border: 1px solid $border-color !important;
+  border-radius: $radius-lg !important;
+  box-shadow: $shadow-lg !important;
+}
+
+.el-select-dropdown__wrap {
+  padding: 8px 0 !important;
+}
+
+.el-select-dropdown__list {
+  padding: 0 !important;
+}
+
+.el-select-dropdown__item {
+  color: $text-secondary !important;
+  padding: 10px 16px !important;
+  margin: 0 !important;
+  transition: all $transition-fast !important;
+  
+  &:hover {
+    background: $bg-hover !important;
+    color: $text-primary !important;
+  }
+  
+  &.selected {
+    background: rgba(99, 102, 241, 0.15) !important;
+    color: #a5b4fc !important;
+    font-weight: 500 !important;
+  }
+  
+  &.is-hovering {
+    background: $bg-hover !important;
+  }
+}
+
+.el-popper.is-light {
+  background: $bg-card !important;
+  border: 1px solid $border-color !important;
+}
+
+.el-popper.is-light .el-popper__arrow::before {
+  background: $bg-card !important;
+  border-color: $border-color !important;
+}
+
+// Dropdown 下拉菜单
+.el-dropdown-menu {
+  background: $bg-card !important;
+  border: 1px solid $border-color !important;
+  border-radius: $radius-lg !important;
+  box-shadow: $shadow-lg !important;
+  padding: 8px !important;
+}
+
+.el-dropdown-menu__item {
+  color: $text-secondary !important;
+  border-radius: $radius-sm !important;
+  padding: 10px 16px !important;
+  transition: all $transition-fast !important;
+  
+  &:hover {
+    background: rgba(239, 68, 68, 0.1) !important;
+    color: $danger-color !important;
+  }
+}
+
+// Tag 标签
+.el-tag {
+  border: none !important;
+  font-weight: 500 !important;
+  
+  &.el-tag--success {
+    background: rgba(34, 197, 94, 0.15) !important;
+    color: #4ade80 !important;
+  }
+  
+  &.el-tag--warning {
+    background: rgba(245, 158, 11, 0.15) !important;
+    color: #fbbf24 !important;
+  }
+  
+  &.el-tag--info {
+    background: rgba(100, 116, 139, 0.15) !important;
+    color: #94a3b8 !important;
+  }
+}
+
+// Progress 进度条
+.el-progress-bar__outer {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 100px !important;
+}
+
+.el-progress-bar__inner {
+  border-radius: 100px !important;
+}
+
+// Message 消息提示
+.el-message {
+  background: $bg-card !important;
+  border: 1px solid $border-color !important;
+  border-radius: $radius-lg !important;
+  box-shadow: $shadow-lg !important;
+}
+
+.el-message__content {
+  color: $text-primary !important;
+}
+
+// MessageBox 确认框
+.el-message-box {
+  background: $bg-card !important;
+  border: 1px solid $border-color !important;
+  border-radius: $radius-xl !important;
+  box-shadow: $shadow-lg !important;
+}
+
+.el-message-box__title {
+  color: $text-primary !important;
+}
+
+.el-message-box__content {
+  color: $text-secondary !important;
+}
+
+// Avatar 头像
+.el-avatar {
+  background: $primary-gradient !important;
+  font-weight: 600 !important;
+}
+
+// ============================================
+// 动画
+// ============================================
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.slide-fade-enter-active {
+  transition: all 0.3s ease-out;
+}
+
+.slide-fade-leave-active {
+  transition: all 0.2s cubic-bezier(1, 0.5, 0.8, 1);
+}
+
+.slide-fade-enter-from,
+.slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
+
+// 弹窗动画优化
+.el-overlay {
+  backdrop-filter: blur(4px);
+}
+
+.el-dialog {
+  animation: dialogSlideIn 0.3s ease-out;
+}
+
+@keyframes dialogSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}

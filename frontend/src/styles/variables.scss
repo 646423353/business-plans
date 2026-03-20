@@ -1,0 +1,37 @@
+$primary-color: #6366f1;
+$primary-hover: #818cf8;
+$primary-gradient: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+$success-color: #22c55e;
+$warning-color: #f59e0b;
+$danger-color: #ef4444;
+$info-color: #64748b;
+
+$text-primary: #f8fafc;
+$text-regular: #e2e8f0;
+$text-secondary: #94a3b8;
+$text-muted: #64748b;
+$text-placeholder: #475569;
+
+$border-color: rgba(255, 255, 255, 0.1);
+$border-light: rgba(255, 255, 255, 0.05);
+$border-focus: rgba(99, 102, 241, 0.5);
+
+$bg-color: #0f172a;
+$bg-card: #1e293b;
+$bg-elevated: #334155;
+$bg-hover: rgba(255, 255, 255, 0.05);
+
+$shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+$shadow-base: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+$shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.4), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+$shadow-glow: 0 0 20px rgba(99, 102, 241, 0.3);
+
+$radius-sm: 8px;
+$radius-base: 10px;
+$radius-lg: 12px;
+$radius-xl: 16px;
+$radius-2xl: 20px;
+
+$transition-fast: 0.15s ease;
+$transition-base: 0.2s ease;
+$transition-slow: 0.3s ease;

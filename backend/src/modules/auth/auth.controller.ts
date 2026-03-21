@@ -1,12 +1,16 @@
 import { Controller, Post, Body, Get, UseGuards, Request, HttpCode, HttpStatus } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { UserService } from '../user/user.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { Public } from '../../common/decorators/public.decorator';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly userService: UserService,
+  ) {}
 
   /**
    * 用户注册
@@ -40,6 +44,7 @@ export class AuthController {
    */
   @Get('me')
   async getCurrentUser(@Request() req: { user: { id: string } }) {
+    await this.userService.checkAndResetDailyQuota(req.user.id);
     return this.authService.validateUser(req.user.id);
   }
 }

@@ -1,16 +1,20 @@
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
 import { PrismaService } from '../../prisma/prisma.service';
+import { UserService } from '../user/user.service';
 import { CreateProjectDto } from './dto/create-project.dto';
 
 @Injectable()
 export class ProjectService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private userService: UserService,
+  ) {}
 
   /**
    * 创建项目
    */
   async create(userId: string, createProjectDto: CreateProjectDto) {
-    return this.prisma.project.create({
+    const project = await this.prisma.project.create({
       data: {
         userId,
         name: createProjectDto.name,
@@ -28,6 +32,10 @@ export class ProjectService {
         updatedAt: true,
       },
     });
+
+    await this.userService.incrementDailyQuota(userId);
+
+    return project;
   }
 
   /**

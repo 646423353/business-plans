@@ -1,5 +1,16 @@
 <template>
   <div class="project-page">
+    <header class="mobile-header">
+      <button class="mobile-back-btn" @click="goBack">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        <span>返回</span>
+      </button>
+      <h1 class="mobile-title">{{ projectStore.currentProject?.name || '对话' }}</h1>
+      <div class="mobile-spacer"></div>
+    </header>
+    
     <aside class="sidebar">
       <div class="sidebar-header">
         <button class="back-btn" @click="goBack">
@@ -151,6 +162,7 @@ const router = useRouter()
 const projectStore = useProjectStore()
 const chatStore = useChatStore()
 
+const showMobileMenu = ref(false)
 const messageListRef = ref<HTMLElement>()
 const inputMessage = ref('')
 const documents = ref<Document[]>([])
@@ -617,5 +629,160 @@ function goBack() {
   border-top-color: white;
   border-radius: 50%;
   animation: spin 1s linear infinite;
+}
+
+.mobile-menu-btn {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 100;
+  width: 44px;
+  height: 44px;
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  
+  svg {
+    width: 24px;
+    height: 24px;
+    color: #f8fafc;
+  }
+}
+
+.mobile-close-btn {
+  display: none;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  
+  svg {
+    width: 20px;
+    height: 20px;
+    color: #94a3b8;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-header {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    background: #1e293b;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    z-index: 100;
+  }
+  
+  .mobile-back-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #f8fafc;
+    font-size: 14px;
+    cursor: pointer;
+    
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+  
+  .mobile-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #f8fafc;
+    margin: 0;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    flex: 1;
+  }
+  
+  .mobile-spacer {
+    width: 80px;
+  }
+  
+  .sidebar {
+    display: none;
+  }
+  
+  .chat-main {
+    width: 100%;
+    padding-top: 56px;
+  }
+  
+  .message-list {
+    padding: 16px;
+  }
+  
+  .input-area {
+    padding: 12px 16px;
+  }
+  
+  .input-hint {
+    display: none;
+  }
+  
+  .input-actions {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .quick-actions {
+    width: 100%;
+    justify-content: flex-start;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    padding-bottom: 4px;
+    
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  
+  .quick-btn {
+    flex-shrink: 0;
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .main-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  
+  .primary-btn, .success-btn {
+    padding: 10px 20px;
+    min-width: 80px;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-header {
+    display: none;
+  }
+  
+  .mobile-overlay {
+    display: none;
+  }
 }
 </style>

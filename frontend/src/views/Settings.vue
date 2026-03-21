@@ -1,6 +1,18 @@
 <template>
   <div class="settings-page">
-    <aside class="sidebar">
+    <header class="mobile-header">
+      <button class="mobile-menu-btn" @click="showMobileMenu = true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+      <h1 class="mobile-title">设置</h1>
+      <div class="mobile-spacer"></div>
+    </header>
+    
+    <div class="mobile-overlay" v-if="showMobileMenu" @click="showMobileMenu = false"></div>
+    
+    <aside class="sidebar" :class="{ 'mobile-open': showMobileMenu }">
       <div class="sidebar-header">
         <div class="brand">
           <div class="brand-icon">
@@ -172,11 +184,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useUserStore } from '@/store/user'
 
 const userStore = useUserStore()
+const showMobileMenu = ref(false)
 
 const quotaPercent = computed(() => {
   const used = userStore.user?.quotaDailyUsed || 0
@@ -574,6 +587,166 @@ function handleUpgrade() {
   &:hover {
     background: rgba(239, 68, 68, 0.1);
     border-color: rgba(239, 68, 68, 0.5);
+  }
+}
+
+.mobile-menu-btn {
+  display: none;
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 100;
+  width: 44px;
+  height: 44px;
+  background: #1e293b;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  
+  svg {
+    width: 24px;
+    height: 24px;
+    color: #f8fafc;
+  }
+}
+
+.mobile-close-btn {
+  display: none;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  
+  svg {
+    width: 20px;
+    height: 20px;
+    color: #94a3b8;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-header {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    background: #1e293b;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    z-index: 100;
+  }
+  
+  .mobile-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #f8fafc;
+    margin: 0;
+  }
+  
+  .mobile-spacer {
+    width: 40px;
+  }
+  
+  .mobile-menu-btn {
+    position: static;
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    
+    svg {
+      width: 20px;
+      height: 20px;
+      color: #f8fafc;
+    }
+  }
+  
+  .mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 150;
+  }
+  
+  .sidebar {
+    position: fixed;
+    left: -280px;
+    top: 0;
+    bottom: 0;
+    z-index: 200;
+    transition: left 0.3s ease;
+    
+    &.mobile-open {
+      left: 0;
+    }
+  }
+  
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+    padding-top: 56px;
+  }
+  
+  .content-header {
+    display: none;
+  }
+  
+  .content-body {
+    padding: 16px;
+  }
+  
+  .profile-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 24px 16px;
+  }
+  
+  .profile-avatar {
+    margin-bottom: 16px;
+  }
+  
+  .profile-info h3 {
+    font-size: 20px;
+  }
+  
+  .upgrade-card {
+    padding: 24px 16px;
+  }
+  
+  .upgrade-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .upgrade-icon {
+    margin-bottom: 12px;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-header {
+    display: none;
+  }
+  
+  .mobile-overlay {
+    display: none;
   }
 }
 </style>

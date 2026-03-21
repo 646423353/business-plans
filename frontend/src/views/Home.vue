@@ -1,6 +1,22 @@
 <template>
   <div class="dashboard-page">
-    <aside class="sidebar">
+    <header class="mobile-header">
+      <button class="mobile-menu-btn" @click="showMobileMenu = true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+      <h1 class="mobile-title">我的项目</h1>
+      <button class="mobile-create-btn" @click="showCreateDialog = true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
+      </button>
+    </header>
+    
+    <div class="mobile-overlay" v-if="showMobileMenu" @click="showMobileMenu = false"></div>
+    
+    <aside class="sidebar" :class="{ 'mobile-open': showMobileMenu }">
       <div class="sidebar-header">
         <div class="brand">
           <div class="brand-icon">
@@ -249,6 +265,7 @@ const router = useRouter()
 const userStore = useUserStore()
 const projectStore = useProjectStore()
 
+const showMobileMenu = ref(false)
 const activeMenu = ref('/')
 const searchKeyword = ref('')
 const showCreateDialog = ref(false)
@@ -1097,5 +1114,167 @@ function formatDate(date: string | Date) {
 .create-dialog .el-select .el-select__placeholder,
 .create-dialog .el-select .el-select__selected-item {
   line-height: 40px !important;
+}
+
+@media (max-width: 768px) {
+  .mobile-header {
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    background: #1e293b;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    z-index: 100;
+  }
+  
+  .mobile-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #f8fafc;
+    margin: 0;
+  }
+  
+  .mobile-menu-btn,
+  .mobile-create-btn {
+    width: 40px;
+    height: 40px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    
+    svg {
+      width: 20px;
+      height: 20px;
+      color: #f8fafc;
+    }
+  }
+  
+  .mobile-create-btn {
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    border: none;
+    
+    svg {
+      color: white;
+    }
+  }
+  
+  .mobile-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 150;
+  }
+  
+  .sidebar {
+    position: fixed;
+    left: -280px;
+    top: 0;
+    bottom: 0;
+    z-index: 200;
+    transition: left 0.3s ease;
+    
+    &.mobile-open {
+      left: 0;
+    }
+  }
+  
+  .main-content {
+    margin-left: 0;
+    padding-top: 56px;
+  }
+  
+  .content-header {
+    display: none !important;
+  }
+  
+  .content-body {
+    padding: 16px !important;
+  }
+  
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .project-card {
+    padding: 16px;
+  }
+  
+  .cases-section {
+    padding: 0;
+  }
+  
+  .cases-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .case-card {
+    padding: 16px;
+  }
+  
+  .create-dialog .el-dialog {
+    width: 95% !important;
+    max-width: 400px !important;
+    margin: 10vh auto !important;
+  }
+  
+  .dialog-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+    padding: 16px;
+  }
+  
+  .dialog-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .dialog-title {
+    font-size: 16px;
+  }
+  
+  .dialog-subtitle {
+    display: none;
+  }
+  
+  .dialog-close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 28px;
+    height: 28px;
+  }
+  
+  .dialog-footer {
+    flex-direction: column;
+    gap: 8px;
+    
+    .el-button {
+      width: 100%;
+      margin: 0;
+    }
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-header {
+    display: none;
+  }
+  
+  .mobile-overlay {
+    display: none;
+  }
 }
 </style>

@@ -7,14 +7,14 @@
     
     <div class="login-container">
       <div class="login-left">
-        <div class="brand">
+        <router-link to="/" class="brand">
           <div class="brand-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
             </svg>
           </div>
           <span class="brand-text">商业策划机</span>
-        </div>
+        </router-link>
         
         <h1 class="hero-title">
           让 AI 成为您的
@@ -191,6 +191,8 @@ async function handleLogin() {
   align-items: center;
   gap: 12px;
   margin-bottom: 48px;
+  text-decoration: none;
+  color: inherit;
 }
 
 .brand-icon {

@@ -343,7 +343,7 @@
           </div>
           <span>商业策划机</span>
         </div>
-        <p class="footer-copyright">© 2024 商业策划机. All rights reserved.</p>
+        <p class="footer-copyright">© {{ new Date().getFullYear() }} 商业策划机. All rights reserved.</p>
       </div>
     </footer>
   </div>

@@ -8,7 +8,9 @@ import { ProjectModule } from './modules/project/project.module';
 import { ChatModule } from './modules/chat/chat.module';
 import { DocumentModule } from './modules/document/document.module';
 import { CaseModule } from './modules/case/case.module';
+import { OAuthModule } from './modules/oauth/oauth.module';
 import { JwtAuthGuard } from './modules/auth/jwt-auth.guard';
+import { Reflector } from '@nestjs/core';
 import configuration from './config/configuration';
 
 @Module({
@@ -27,11 +29,13 @@ import configuration from './config/configuration';
     ChatModule,
     DocumentModule,
     CaseModule,
+    OAuthModule,
   ],
   providers: [
     {
       provide: APP_GUARD,
-      useClass: JwtAuthGuard,
+      useFactory: (reflector: Reflector) => new JwtAuthGuard(reflector),
+      inject: [Reflector],
     },
   ],
 })

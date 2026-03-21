@@ -21,7 +21,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     private configService: ConfigService,
     private prisma: PrismaService,
   ) {
-    const secret = configService.get<string>('app.jwt.secret') ?? 'default-secret';
+    const secret = configService.get<string>('jwt.secret') ?? 'default-secret';
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       ignoreExpiration: false,

@@ -23,4 +23,12 @@ export default () => ({
     freeDailyLimit: parseInt(process.env.QUOTA_FREE_DAILY_LIMIT || '1', 10),
     proDailyLimit: parseInt(process.env.QUOTA_PRO_DAILY_LIMIT || '10', 10),
   },
+  oauth: {
+    clientId: process.env.OAUTH_CLIENT_ID || 'business-planner',
+    clientSecret: process.env.OAUTH_CLIENT_SECRET || 'bp-secret-key-2026-change-in-production',
+    authUrl: process.env.OAUTH_AUTH_URL || 'http://localhost:5174/oauth/authorize',
+    tokenUrl: process.env.OAUTH_TOKEN_URL || 'http://localhost:3001/oauth/token',
+    userinfoUrl: process.env.OAUTH_USERINFO_URL || 'http://localhost:3001/oauth/userinfo',
+    redirectUri: process.env.OAUTH_REDIRECT_URI || 'http://localhost:5173/auth/callback',
+  },
 });

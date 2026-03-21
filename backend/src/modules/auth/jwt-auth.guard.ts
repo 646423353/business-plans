@@ -10,11 +10,12 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
   }
 
   canActivate(context: ExecutionContext) {
-    // 检查是否为公开接口
     const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
       context.getHandler(),
       context.getClass(),
     ]);
+
+    console.log('JwtAuthGuard - isPublic:', isPublic, 'handler:', context.getHandler().name);
 
     if (isPublic) {
       return true;

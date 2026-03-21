@@ -186,6 +186,56 @@ npm run dev
 
 ## 配置说明
 
+### OAuth 一键登录配置
+
+商业策划机支持通过 DashHub 主系统进行一键登录，实现统一的身份认证。
+
+#### 后端配置
+
+在 `backend/.env` 中添加：
+
+```env
+# OAuth 客户端配置
+OAUTH_CLIENT_ID=business-planner
+OAUTH_CLIENT_SECRET=bp-secret-key-2026-change-in-production
+OAUTH_AUTH_URL=http://localhost:5174/oauth/authorize
+OAUTH_TOKEN_URL=http://localhost:3001/oauth/token
+OAUTH_USERINFO_URL=http://localhost:3001/oauth/userinfo
+OAUTH_REDIRECT_URI=http://localhost:5173/auth/callback
+```
+
+#### 前端配置
+
+在 `frontend/.env` 中添加：
+
+```env
+VITE_API_BASE_URL=http://localhost:3000/api
+```
+
+#### OAuth 流程说明
+
+1. 用户点击"使用 DashHub 一键登录"按钮
+2. 跳转到主系统授权页面
+3. 用户登录主系统并授权
+4. 主系统生成授权码并回调子系统
+5. 子系统使用授权码换取用户信息
+6. 子系统创建或更新用户，完成登录
+
+#### 测试账号
+
+主系统测试账号：
+- 邮箱：user1@example.com
+- 密码：password123
+
+#### 常见问题
+
+| 问题 | 解决方案 |
+|------|----------|
+| invalid_client | 检查主系统数据库 oauth_clients 表中是否有正确的客户端记录 |
+| invalid_redirect_uri | 检查 redirect_uris 是否包含子系统配置的回调地址 |
+| CORS 错误 | 检查主系统后端 CORS 配置是否包含子系统地址 |
+| 登录后 401 | 检查子系统 JWT 配置是否正确（jwt.secret） |
+
 ### AI 模型配置
 
 项目使用硅基流动 API，支持多种大语言模型：

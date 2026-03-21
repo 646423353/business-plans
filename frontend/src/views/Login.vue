@@ -86,6 +86,21 @@
             </el-form-item>
           </el-form>
           
+          <div class="divider">
+            <span>或</span>
+          </div>
+          
+          <button
+            type="button"
+            class="oauth-btn"
+            @click="handleOAuthLogin"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="oauth-icon">
+              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+            <span>使用 DashHub 一键登录</span>
+          </button>
+          
           <div class="login-footer">
             <span>还没有账号？</span>
             <router-link to="/register">立即注册</router-link>
@@ -102,6 +117,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { ElMessage } from 'element-plus'
 import type { FormInstance, FormRules } from 'element-plus'
 import { useUserStore } from '@/store/user'
+import { oauthApi } from '@/services/oauth'
 
 const router = useRouter()
 const route = useRoute()
@@ -141,6 +157,10 @@ async function handleLogin() {
   } finally {
     loading.value = false
   }
+}
+
+function handleOAuthLogin() {
+  oauthApi.authorize()
 }
 </script>
 
@@ -393,6 +413,54 @@ async function handleLogin() {
     &:hover {
       color: #a5b4fc;
     }
+  }
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  margin: 24px 0;
+  
+  &::before,
+  &::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  span {
+    padding: 0 16px;
+    color: #64748b;
+    font-size: 14px;
+  }
+}
+
+.oauth-btn {
+  width: 100%;
+  padding: 14px;
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  border-radius: 10px;
+  color: #a5b4fc;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  
+  &:hover {
+    background: rgba(99, 102, 241, 0.2);
+    border-color: rgba(99, 102, 241, 0.5);
+    transform: translateY(-2px);
+  }
+  
+  .oauth-icon {
+    width: 20px;
+    height: 20px;
   }
 }
 

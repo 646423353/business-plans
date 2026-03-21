@@ -14,8 +14,8 @@ import { UserModule } from '../user/user.module';
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => {
-        const secret = configService.get<string>('app.jwt.secret') ?? 'default-secret';
-        const expiresIn = configService.get<string>('app.jwt.expiresIn') ?? '7d';
+        const secret = configService.get<string>('jwt.secret') ?? 'default-secret';
+        const expiresIn = configService.get<string>('jwt.expiresIn') ?? '7d';
         return {
           secret,
           signOptions: {
@@ -31,3 +31,5 @@ import { UserModule } from '../user/user.module';
   exports: [AuthService],
 })
 export class AuthModule {}
+
+// Reload

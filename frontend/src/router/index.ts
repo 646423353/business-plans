@@ -10,6 +10,12 @@ const routes: RouteRecordRaw[] = [
     meta: { title: '首页', public: true },
   },
   {
+    path: '/auth/callback',
+    name: 'OAuthCallback',
+    component: () => import('@/views/OAuthCallback.vue'),
+    meta: { title: '登录中...', public: true },
+  },
+  {
     path: '/dashboard',
     name: 'Dashboard',
     component: () => import('@/views/Home.vue'),

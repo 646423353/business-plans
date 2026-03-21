@@ -26,9 +26,9 @@ export default () => ({
   oauth: {
     clientId: process.env.OAUTH_CLIENT_ID || 'business-planner',
     clientSecret: process.env.OAUTH_CLIENT_SECRET || 'bp-secret-key-2026-change-in-production',
-    authUrl: process.env.OAUTH_AUTH_URL || 'http://localhost:5174/oauth/authorize',
-    tokenUrl: process.env.OAUTH_TOKEN_URL || 'http://localhost:3001/oauth/token',
-    userinfoUrl: process.env.OAUTH_USERINFO_URL || 'http://localhost:3001/oauth/userinfo',
-    redirectUri: process.env.OAUTH_REDIRECT_URI || 'http://localhost:5173/auth/callback',
+    authUrl: process.env.OAUTH_AUTH_URL || 'https://dashhub.insfair.cn/oauth/authorize',
+    tokenUrl: process.env.OAUTH_TOKEN_URL || 'https://dashhub.insfair.cn/oauth/token',
+    userinfoUrl: process.env.OAUTH_USERINFO_URL || 'https://dashhub.insfair.cn/oauth/userinfo',
+    redirectUri: process.env.OAUTH_REDIRECT_URI || 'https://cehua.insfair.cn/auth/callback',
   },
 });

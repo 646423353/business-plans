@@ -1,5 +1,5 @@
 import { request } from './request'
-import type { Document, ApiResponse, PaginatedResponse } from '@/types'
+import type { Document, ApiResponse } from '@/types'
 
 export interface GenerateDocumentRequest {
   projectId: string

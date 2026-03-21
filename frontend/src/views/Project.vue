@@ -162,7 +162,6 @@ const router = useRouter()
 const projectStore = useProjectStore()
 const chatStore = useChatStore()
 
-const showMobileMenu = ref(false)
 const messageListRef = ref<HTMLElement>()
 const inputMessage = ref('')
 const documents = ref<Document[]>([])
@@ -210,18 +209,19 @@ function scrollToBottom() {
   }
 }
 
-function handleEnterKey(event: KeyboardEvent) {
-  if (event.ctrlKey || event.metaKey) {
-    const textarea = event.target as HTMLTextAreaElement
+function handleEnterKey(event: Event | KeyboardEvent) {
+  const e = event as KeyboardEvent
+  if (e.ctrlKey || e.metaKey) {
+    const textarea = e.target as HTMLTextAreaElement
     const start = textarea.selectionStart
     const end = textarea.selectionEnd
     inputMessage.value = inputMessage.value.substring(0, start) + '\n' + inputMessage.value.substring(end)
     nextTick(() => {
       textarea.selectionStart = textarea.selectionEnd = start + 1
     })
-    event.preventDefault()
+    e.preventDefault()
   } else {
-    event.preventDefault()
+    e.preventDefault()
     sendMessage()
   }
 }

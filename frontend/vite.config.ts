@@ -14,7 +14,7 @@ export default defineConfig({
       dts: 'src/auto-imports.d.ts',
     }),
     Components({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [ElementPlusResolver({ importStyle: 'sass' })],
       dts: 'src/components.d.ts',
     }),
   ],
@@ -31,5 +31,34 @@ export default defineConfig({
         changeOrigin: true,
       },
     },
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('element-plus')) {
+              return 'element-plus'
+            }
+            if (id.includes('@element-plus')) {
+              return 'element-plus-icons'
+            }
+            if (id.includes('vue') || id.includes('pinia') || id.includes('vue-router')) {
+              return 'vue-vendor'
+            }
+            if (id.includes('axios')) {
+              return 'axios'
+            }
+            if (id.includes('marked')) {
+              return 'marked'
+            }
+            if (id.includes('dayjs')) {
+              return 'dayjs'
+            }
+          }
+        },
+      },
+    },
+    chunkSizeWarningLimit: 600,
   },
 })

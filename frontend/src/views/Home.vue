@@ -266,7 +266,6 @@ const userStore = useUserStore()
 const projectStore = useProjectStore()
 
 const showMobileMenu = ref(false)
-const activeMenu = ref('/')
 const searchKeyword = ref('')
 const showCreateDialog = ref(false)
 const createLoading = ref(false)
@@ -345,12 +344,6 @@ async function handleCreateProject() {
 
 function handleProjectClick(project: Project) {
   router.push(`/project/${project.id}`)
-}
-
-function handleProjectAction(cmd: string, project: Project) {
-  if (cmd === 'delete') {
-    handleDeleteProject(project)
-  }
 }
 
 async function handleDeleteProject(project: Project) {

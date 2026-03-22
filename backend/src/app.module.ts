@@ -13,12 +13,17 @@ import { JwtAuthGuard } from './modules/auth/jwt-auth.guard';
 import { Reflector } from '@nestjs/core';
 import configuration from './config/configuration';
 
+const env = process.env.NODE_ENV || 'development';
+const envFiles = env === 'production' 
+  ? ['.env.production.local', '.env.production', '.env']
+  : ['.env.local', '.env.development', '.env'];
+
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
       load: [configuration],
-      envFilePath: ['.env.local', '.env'],
+      envFilePath: envFiles,
     }),
 
     PrismaModule,

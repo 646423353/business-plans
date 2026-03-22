@@ -38,14 +38,25 @@ export class OAuthService {
     private prisma: PrismaService,
     private jwtService: JwtService,
   ) {
+    const authUrl = this.configService.get<string>('oauth.authUrl');
+    const tokenUrl = this.configService.get<string>('oauth.tokenUrl');
+    const userinfoUrl = this.configService.get<string>('oauth.userinfoUrl');
+    const redirectUri = this.configService.get<string>('oauth.redirectUri');
+    
+    console.log('OAuth Config - NODE_ENV:', process.env.NODE_ENV);
+    console.log('OAuth Config - authUrl:', authUrl);
+    console.log('OAuth Config - redirectUri:', redirectUri);
+    
     this.oauthConfig = {
       clientId: this.configService.get<string>('oauth.clientId') || 'business-planner',
       clientSecret: this.configService.get<string>('oauth.clientSecret') || 'bp-secret-key-2026-change-in-production',
-      authorizationUrl: this.configService.get<string>('oauth.authUrl') || 'http://localhost:5174/oauth/authorize',
-      tokenUrl: this.configService.get<string>('oauth.tokenUrl') || 'http://localhost:3001/oauth/token',
-      userInfoUrl: this.configService.get<string>('oauth.userinfoUrl') || 'http://localhost:3001/oauth/userinfo',
-      redirectUri: this.configService.get<string>('oauth.redirectUri') || 'http://localhost:5173/auth/callback',
+      authorizationUrl: authUrl || 'https://dashhub.insfair.cn/oauth/authorize',
+      tokenUrl: tokenUrl || 'https://dashhub.insfair.cn/oauth/token',
+      userInfoUrl: userinfoUrl || 'https://dashhub.insfair.cn/oauth/userinfo',
+      redirectUri: redirectUri || 'https://cehua.insfair.cn/auth/callback',
     };
+    
+    console.log('OAuth Config - Final authorizationUrl:', this.oauthConfig.authorizationUrl);
   }
 
   generateState(): string {

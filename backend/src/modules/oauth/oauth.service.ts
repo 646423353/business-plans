@@ -45,8 +45,6 @@ export class OAuthService {
     
     console.log('OAuth Config - NODE_ENV:', process.env.NODE_ENV);
     console.log('OAuth Config - authUrl:', authUrl);
-    console.log('OAuth Config - tokenUrl:', tokenUrl);
-    console.log('OAuth Config - userinfoUrl:', userinfoUrl);
     console.log('OAuth Config - redirectUri:', redirectUri);
     
     this.oauthConfig = {
@@ -59,8 +57,6 @@ export class OAuthService {
     };
     
     console.log('OAuth Config - Final authorizationUrl:', this.oauthConfig.authorizationUrl);
-    console.log('OAuth Config - Final tokenUrl:', this.oauthConfig.tokenUrl);
-    console.log('OAuth Config - Final userInfoUrl:', this.oauthConfig.userInfoUrl);
   }
 
   generateState(): string {
@@ -81,20 +77,18 @@ export class OAuthService {
 
   async exchangeCodeForToken(code: string): Promise<TokenResponse> {
     try {
-      const params = new URLSearchParams({
-        grant_type: 'authorization_code',
-        code: code,
-        redirect_uri: this.oauthConfig.redirectUri,
-        client_id: this.oauthConfig.clientId,
-        client_secret: this.oauthConfig.clientSecret,
-      });
-
       const response = await axios.post(
         this.oauthConfig.tokenUrl,
-        params.toString(),
+        {
+          grant_type: 'authorization_code',
+          code: code,
+          redirect_uri: this.oauthConfig.redirectUri,
+          client_id: this.oauthConfig.clientId,
+          client_secret: this.oauthConfig.clientSecret,
+        },
         {
           headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
           },
         },
       );
